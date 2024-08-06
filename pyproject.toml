@@ -36,3 +36,6 @@ write_to = "_version.py"
 
 [project.scripts]
 your-command-name = "cco.cli:app"
+
+[tool.setuptools]
+py-modules = ["cco"]
