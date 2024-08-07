@@ -38,10 +38,11 @@ Partial order information is added to the .xes output file as follows:
 
 ## Parameters of the CCO Tool
 
-- mode = "alpha" | "lifecycle"<br>
-- scope = "logwise" | "tracewise"<br>
 - infilename = the filename of the log to be processed, only .xes files are allowed<br>
 - outfilename = the filename for the output log<br>
+- mode = "alpha" | "lifecycle"<br>
+- scope = "logwise" | "tracewise"<br>
+- keep = "all" | "one_per_seq_variant" | "one_per_po_variant"<br>
 - stats_only = True | False<br>
 
 ## Installation
@@ -63,7 +64,7 @@ cco(
     infilename="example-data/repairExampleNice.xes",
     outfilename="output-repairReduced.xes",
     mode="alpha",
-    scope="tracewise",
+    scope="logwise",
     keep="one_per_po_variant",
     stats_only=False,
 )
