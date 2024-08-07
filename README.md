@@ -12,7 +12,7 @@ Partial order information is added to the .xes output file as follows:
 <int key="identity:id" value="0" />
 ```
 
-- The successor nodes (events) of an event in the partial order are added on event level using the key "po_successors", which lists the successors' IDs as values of its children. Please note that events that are part of the partial order but have no successors (they may even be isolated nodes) nevertheless have a list of successors, which is empty. Events which are not part of the partial order but part of the sequential trace (e.g. start activities) have a "nan" value as po_successor list. Example for an event which has successors with IDs 1, 2 and 3:
+- The successor nodes (events) of an event in the partial order are added on event level using the key "po_successors", which lists the successors' IDs as values of its children. Please note that events that are part of the partial order but have no successors (they may even be isolated nodes) nevertheless have a list of successors, which is empty. Events which are not part of the partial order but part of the sequential trace (e.g. start activities) have a "nan" value as po_successor list. Example for an event which has successors with IDs 11, 12 and 15:
 
 ```
   <list key="po_successors">
@@ -47,6 +47,7 @@ Partial order information is added to the .xes output file as follows:
 
 ## Installation
 
+Please note: The CCO Tool requires Python >= 3.11.
 ```bash
 git clone https://github.com/sabinefw/ConfigurableConcurrencyOracleTool.git
 cd ConfigurableConcurrencyOracleTool
