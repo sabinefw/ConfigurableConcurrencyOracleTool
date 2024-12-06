@@ -50,9 +50,9 @@ def createPObyactivities_NxDiGraph(var, concurrent: Concurrent):
     for u, v in po.edges:
         porel.append((po.nodes[u]["activity"], po.nodes[v]["activity"]))
 
-    #print(var)
-    #print(potracesuccessor)
-    #print(porel)
+    # print(var)
+    # print(potracesuccessor)
+    # print(porel)
 
     return potracesuccessor, porel, po
 
@@ -80,9 +80,9 @@ def createPObypositions_NxDiGraph(var, pos_concurrent: Concurrent, equivalents):
     for u, v in po.edges:
         porel.append((po.nodes[u]["activity"], po.nodes[v]["activity"]))
 
-    #print(var)
-    #print(potracenachfolger)
-    #print(porel)
+    # print(var)
+    # print(potracenachfolger)
+    # print(porel)
 
     return potracenachfolger, porel, po
 

@@ -118,10 +118,12 @@ def cco(
     # write xes file
     filog_towrite.reset_index(inplace=True)
     filog_towrite["is_part_of_po"] = pd.Series(dtype=bool)
-    #print(filog_towrite["po_successors"])
-    #print(filog_towrite["is_part_of_po"])
+    # print(filog_towrite["po_successors"])
+    # print(filog_towrite["is_part_of_po"])
     filog_towrite["is_part_of_po"] = filog_towrite["po_successors"].notna()
-    filog_towrite["po_successors"] = filog_towrite["po_successors"].apply(lambda x:{'value':None,'children':[]} if pd.isna(x) else x)
+    filog_towrite["po_successors"] = filog_towrite["po_successors"].apply(
+        lambda x: {"value": None, "children": []} if pd.isna(x) else x
+    )
     cco_writers.write_xes_and_drop_NaNs(filog_towrite, outfilename)
 
 

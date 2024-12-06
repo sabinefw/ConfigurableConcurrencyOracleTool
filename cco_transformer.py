@@ -63,7 +63,9 @@ def transform(
         if len(concurrent) > 0:
             for c in concurrent.to_tuples():
                 print(c)
-            export_df = pd.DataFrame(concurrent.to_tuples(), columns=["activity_1", "activity_2"])
+            export_df = pd.DataFrame(
+                concurrent.to_tuples(), columns=["activity_1", "activity_2"]
+            )
             export_df.to_csv("concurrencies.csv", index=False)
         else:
             print("No concurrencies found in the log.")
@@ -128,7 +130,9 @@ def transform(
             if len(report_concurrency) > 0:
                 for c in report_concurrency.to_tuples():
                     print(c)
-                export_df = pd.DataFrame(report_concurrency.to_tuples(), columns=["activity_1", "activity_2"])
+                export_df = pd.DataFrame(
+                    report_concurrency.to_tuples(), columns=["activity_1", "activity_2"]
+                )
                 export_df.to_csv("concurrencies.csv", index=False)
             else:
                 print("No concurrencies found in the log.")
@@ -170,7 +174,9 @@ def transform(
             if len(concurrent) > 0:
                 for c in concurrent.to_tuples():
                     print(c)
-                export_df = pd.DataFrame(concurrent.to_tuples(), columns=["activity_1", "activity_2"])
+                export_df = pd.DataFrame(
+                    concurrent.to_tuples(), columns=["activity_1", "activity_2"]
+                )
                 export_df.to_csv("concurrencies.csv", index=False)
             else:
                 print("No concurrencies found in the log.")

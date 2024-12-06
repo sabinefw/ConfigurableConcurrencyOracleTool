@@ -9,7 +9,6 @@ def read_log(infilename, mode, scope):
 
     log = pm4py.read_xes(infilename)
 
-
     lc_available = "lifecycle:transition" in log.columns
     if mode == "lifecycle" and not lc_available:
         raise ValueError(
@@ -60,14 +59,16 @@ def read_log(infilename, mode, scope):
             filog_wlc["identity:id"] = range(0, len(filog_wlc))
             filog_wlc.set_index("identity:id", inplace=True)
 
-            splitlog = pm4py.split_by_process_variant(filog_wlc, activity_key="new:activity:identifier")
+            splitlog = pm4py.split_by_process_variant(
+                filog_wlc, activity_key="new:activity:identifier"
+            )
             for k, v in splitlog:
                 ids = v["case:concept:name"].unique()
                 caseid_dict[k] = ids.tolist()
 
             filog_towrite = filog_wlc.copy()
 
-    else: # will not be used in non-lifecycle modes but must be set as return value
+    else:  # will not be used in non-lifecycle modes but must be set as return value
         filog_wlc = filog_towrite
         vars_wlc = pm4py.get_variants(filog_towrite, activity_key="concept:name")
 

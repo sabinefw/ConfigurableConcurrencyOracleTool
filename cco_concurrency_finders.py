@@ -69,7 +69,6 @@ class LifecycleConcurrencyFinder:
             )
 
     def find(self):
-
         pos_equivalents = {}
         pos_concurrency = {}
         concurrency = Concurrent()
@@ -78,7 +77,7 @@ class LifecycleConcurrencyFinder:
             i for i, v in enumerate(self.variants) if v.endswith(self._keyword_start)
         ]
         if len(starting_activity_idxs) == 0:
-            #warn("No starting events found!")
+            # warn("No starting events found!")
             pass
         elif starting_activity_idxs[-1] == len(self.variants) - 1:
             # a var can only be starting if there is an ending var after it
@@ -116,10 +115,12 @@ class LifecycleConcurrencyFinder:
         conc_cand_pos = []
 
         starting_activity = self.variants[starting_activity_idx]
-        stopping_activity_name = starting_activity.replace(self._keyword_start, self._keyword_complete)
+        stopping_activity_name = starting_activity.replace(
+            self._keyword_start, self._keyword_complete
+        )
 
         # register concurrencies until the stopping variant is found
-        all_following_activities = self.variants[starting_activity_idx + 1:]
+        all_following_activities = self.variants[starting_activity_idx + 1 :]
         indices = range(starting_activity_idx + 1, len(self.variants))
         for f_i, following_act in zip(indices, all_following_activities):
             if following_act == stopping_activity_name:
@@ -128,7 +129,8 @@ class LifecycleConcurrencyFinder:
                 break
 
             conc_cand_names.add_pair(
-                self._get_base_name(starting_activity), self._get_base_name(following_act)
+                self._get_base_name(starting_activity),
+                self._get_base_name(following_act),
             )  # NOTE: self-concurrency is possible!
             conc_cand_pos.append(f_i)
         else:
