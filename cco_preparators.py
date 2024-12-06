@@ -9,6 +9,7 @@ def read_log(infilename, mode, scope):
 
     log = pm4py.read_xes(infilename)
 
+
     lc_available = "lifecycle:transition" in log.columns
     if mode == "lifecycle" and not lc_available:
         raise ValueError(

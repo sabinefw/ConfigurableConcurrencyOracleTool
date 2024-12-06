@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
+import pm4py
 from copy import copy
+from pm4py.objects.conversion.log import converter as log_converter
 
 
 def generate_pm4py_list(my_list):
@@ -61,3 +63,10 @@ def writePOinfo(log, caseids_variant, succ, po_name):
             log.at[event_id, "case:po_name"] = po_name
 
     return log
+
+def write_xes_and_drop_NaNs(df: pd.DataFrame, output_file:str):
+    log_with_postp = log_converter.apply(
+        df, variant=log_converter.Variants.TO_EVENT_LOG,
+        parameters={"stream_postprocessing": True}
+    )
+    pm4py.write_xes(log_with_postp, output_file)

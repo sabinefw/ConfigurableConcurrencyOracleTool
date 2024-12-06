@@ -1,9 +1,11 @@
 import typer
 import pm4py
+import pandas as pd
 from enum import Enum
 
 import cco_transformer
 import cco_preparators
+import cco_writers
 
 app = typer.Typer()
 
@@ -58,7 +60,7 @@ def cco(
     assert scope in scopes
     assert keep in keeps
 
-    assert outfilename is not None or stats_only, "Provide a outfilename!"
+    assert outfilename is not None or stats_only, "Provide an outfilename!"
 
     # read log and prepare for analysis and transformation
     filog_towrite, filog_wlc, vars_wlc, caseid_dict, keyword_c, keyword_s = (
@@ -110,12 +112,17 @@ def cco(
         vars_at_end = pm4py.get_variants(filog_towrite, activity_key="concept:name")
 
     # check output and report
-    # print("Number of variants contained in the exported log:")
-    # print(len(vars_at_end))
+    print("Number of variants contained in the exported log:")
+    print(len(vars_at_end))
 
     # write xes file
     filog_towrite.reset_index(inplace=True)
-    pm4py.write_xes(filog_towrite, outfilename)
+    filog_towrite["is_part_of_po"] = pd.Series(dtype=bool)
+    #print(filog_towrite["po_successors"])
+    #print(filog_towrite["is_part_of_po"])
+    filog_towrite["is_part_of_po"] = filog_towrite["po_successors"].notna()
+    filog_towrite["po_successors"] = filog_towrite["po_successors"].apply(lambda x:{'value':None,'children':[]} if pd.isna(x) else x)
+    cco_writers.write_xes_and_drop_NaNs(filog_towrite, outfilename)
 
 
 if __name__ == "__main__":
